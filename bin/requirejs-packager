@@ -15,6 +15,7 @@ program
     .usage('[options] <file|dir ...>')
     .option('-f, --format <name>', 'format to parse (amd/cjs)', 'cjs')
     .option('-t, --tree', 'show the tree', 'showTree')
+    .option('-s, --summary', 'show the summary', 'summary')
     .parse(process.argv);
 
 if (!program.args.length && !program.read) {
@@ -27,7 +28,7 @@ var src = program.args;
 run();
 
 function run() {
-     // Start parsing
+    // Start parsing
     var res = packager(src, {
         format: program.format,
         breakOnError: program.breakOnError,
@@ -38,6 +39,8 @@ function run() {
     // Ouput summary
     if (program.showTree) {
         res.showTree();
+    } else if (program.summary) {
+        res.showSummary();
     } else {
         //res.showReverseDependencies();
         res.showDependencyFrequencyList();
