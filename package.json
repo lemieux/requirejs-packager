@@ -1,0 +1,19 @@
+{
+  "name": "requirejs-packager",
+  "version": "0.0.0",
+  "description": "",
+  "main": "lib/packager",
+  "bin": {
+    "requirejs-packager": "./bin/requirejs-packager"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "madge": "~0.1.9",
+    "lodash": "~2.4.1",
+    "commander": "~2.1.0"
+  }
+}

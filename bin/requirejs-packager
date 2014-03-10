@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+'use strict';
+
+/**
+ * Module dependencies
+ */
+var fs = require('fs'),
+    version = require('../package.json').version,
+    program = require('commander'),
+    packager = require('../lib/packager');
+
+program
+    .version(version)
+    .usage('[options] <file|dir ...>')
+    .option('-f, --format <name>', 'format to parse (amd/cjs)', 'cjs')
+    .option('-t, --tree', 'show the tree', 'showTree')
+    .parse(process.argv);
+
+if (!program.args.length && !program.read) {
+    console.log(program.helpInformation());
+    process.exit(1);
+}
+
+var src = program.args;
+
+run();
+
+function run() {
+     // Start parsing
+    var res = packager(src, {
+        format: program.format,
+        breakOnError: program.breakOnError,
+        exclude: program.exclude,
+        optimized: program.optimized
+    });
+
+    // Ouput summary
+    if (program.showTree) {
+        res.showTree();
+    } else {
+        //res.showReverseDependencies();
+        res.showDependencyFrequencyList();
+    }
+}
